@@ -1,0 +1,57 @@
+task:
+   use a graph to represent a chessboard
+   each square on the board is a node (or vertex)
+   knight's valid moves from any square
+   represent the edges (or connections) between vertices
+  
+goal:
+   traverse the graph (chessboard)
+   to find shortest route between two nodes
+   (start and end positions)
+  
+info:
+   vertices in the graph are
+   each of the possible positions on the board
+   represented by pair of coordinates like [x, y]
+   where x and y are between 0 and 7
+   edges are the valid knight moves between vertices
+        ie: from [0, 0] a knight can move to [2, 1], [1, 2], etc
+   each move represents a connection
+   between vertex [0, 0] and other reachable vertices
+  
+   knight starts on a specific vertex
+   algorithm will dynamically explore
+   all possible moves (edges)
+   to other vertices (positions on board)
+   as it traverses the board
+  
+assignment:
+   build a function (knightMoves)
+   that shows shortest possible way
+   to get from one square to another
+   by outputting all squares the knight will stop on
+   along the way
+   board has 2D coordinates
+   call function like: knightMoves([0,0],[1,2])
+   returns [[0,0],[1,2]]
+  
+notes: 
+   can be more than one fastest path
+   any answer is correct as long as it follows the rules
+   and gives the shortest possible path
+  
+1. from every square, multiple moves are possible
+   choose a data structure that will work with them
+   don't allow any moves to go off the board
+2. decide which search algorithm is best for this case
+   one can be a potentially infinite series
+3. use chosen search algorithm
+   to find shortest past
+   between starting square (or node) and the ending square
+   output what the full path looks like:
+        > knightMoves([3,3],[4,3])
+        => You made it in 3 moves!  Here's your path:
+        [3,3]
+        [4,5]
+        [2,4]
+        [4,3]
