@@ -24,6 +24,18 @@ info:
    all possible moves (edges)
    to other vertices (positions on board)
    as it traverses the board
+
+   represents positions as coordinates
+      each square can be written as [x, y]
+      where both values range from 0 to 7
+   use a queue
+      to keep track of the next positions to explore
+   track visited positions
+      unlike trees
+      graphs can revisit the same position
+      through different paths
+      so be sure to track visited positions
+      to avoid loops or unnecessary repeats
   
 assignment:
    build a function (knightMoves)
@@ -50,8 +62,58 @@ notes:
    between starting square (or node) and the ending square
    output what the full path looks like:
         > knightMoves([3,3],[4,3])
-        => You made it in 3 moves!  Here's your path:
+        => You made it in 3 moves! Here's your path:
         [3,3]
         [4,5]
         [2,4]
         [4,3]
+
+--
+
+given that you are in a position x,y
+a knight piece can move in these cells:
+[x+2, y+1]
+[x+1, y+2]
+[x+1, y-2] and so on 
+
+so one thing you could do is 
+adding all these possible new positions in your search 
+each time you visit coordinates a given coordinate x,y! 
+Taking care that each "new position" stays inside the board, 
+so neither x nor y should get out of the interval [0, 7]
+
+create list "coordinatesQueue" 
+and put the inital coordinates as the only value 
+
+analyze the first element in the queue 
+   a. if it the position you are looking for then you are done 
+   b. if it isn't then you add all the new possible coordinates 
+      (using your current coordinates as a reference) to the queue
+repeat step b until destination is found
+
+--
+
+treat the squares of the board as nodes in a graph
+for instance, a1 connects to b3 and c2;
+all moves have a cost of 1 (which simplifies the algorithm a little)
+
+you'll need to build your graph either before you start, 
+connecting all possible moves; 
+or on the fly, generating all possibilities from the current square
+most students find that doing it on the fly is easier for them
+
+changing from algebraic chess notation to (row, col) notation helps
+if the knight is currently at (row, col)
+then the legal next moves are:
+(row+-2, col +-1) and
+(row+-1, col +-2)
+where x and y are both in the range 0-7
+(throw out moves that take the knight past the board's edge)
+
+maintain a global list of squares you've already visited
+and another of squares you need to visit
+(one move from those you've visited)
+you'll also need an array of least cost (number of moves)
+to get to each square
+initialize that to 100
+and let the algorithm reduce it as it walks through the search
